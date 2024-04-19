@@ -1,4 +1,10 @@
 # Changelog
+Changelogs and documentations will be under this file.
+
+
+## 1.1.0
+
+* Initialize React Project with [Vite](https://vitejs.dev/guide/#scaffolding-your-first-vite-project) (react-ts)
 
 ## 1.0.0
 

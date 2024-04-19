@@ -10,7 +10,7 @@
 
 ### Client *(Frontend)*
 
-* [ ] A frontend developed in React written in TypeScript in strict mode
+* [X] A frontend developed in React written in TypeScript in strict mode (1.1.0)
 * [ ] Using hooks that render the list of duties retrieved from the backend
 * [ ] Allow the user
   * [ ] to create new ones and/or
