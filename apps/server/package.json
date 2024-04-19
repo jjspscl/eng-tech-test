@@ -1,0 +1,26 @@
+{
+  "name": "@todo/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "start:watch": "nodemon --watch dist --exec node dist/index.js",
+    "dev": "concurrently \"pnpm build:watch\" \"pnpm start:watch\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@types/node": "^20.12.7",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}

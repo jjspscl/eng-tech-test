@@ -25,6 +25,6 @@
 
 ### Server (Backend)
 
-* [ ] A backend written in Node JS with TypeScript in strict mode.
+* [X] A backend written in Node JS with TypeScript in strict mode. (1.2.0)
 * [ ] The data must be stored using PostgreSQL as a database engine.
 * [ ] Do not use ORM or any other solution that hides the fact you are using a SQL database; use plain SQL queries instead.

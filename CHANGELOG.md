@@ -1,6 +1,15 @@
 # Changelog
+
 Changelogs and documentations will be under this file.
 
+## 1.2.0
+
+* Initialize Node Server Application
+  * Initialized using `pnpm init`
+  * Install dependencies
+    * [tsup](https://tsup.egoist.dev/#install) as the bundler
+    * [concurrently](https://www.npmjs.com/package/concurrently) + [nodemon](https://www.npmjs.com/package/nodemon) as a development runtime and add scripts to watch for file changes
+  * Initialize the Todos Routes
 
 ## 1.1.0
 
