@@ -24,11 +24,3 @@
 * [ ] A backend written in Node JS with TypeScript in strict mode.
 * [ ] The data must be stored using PostgreSQL as a database engine.
 * [ ] Do not use ORM or any other solution that hides the fact you are using a SQL database; use plain SQL queries instead.
-
-# Changelog
-
-## 1.0.0
-
-* Initialized the project as a [PNPM Workspace](https://pnpm.io/workspaces) + Monorepo with [Turborepo](https://turbo.build/repo).
-  Why Monorepo? We will be sharing types and interfaces between the two applications Frontend and Backend Applications. 
-  This is a best practice for modern Applications and Turborepo is one of the best tools I have used personally for Javascript Monorepo Projects.
