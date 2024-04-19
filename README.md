@@ -1,5 +1,9 @@
 # Tech Test
 
+### Changelog and Documentation
+
+[View it here](https://github.com/jjspscl/eng-tech-test/blob/main/CHANGELOG.md)
+
 ### General
 
 * [X] The code is published in a public git repository where anybody can clone the solution. (1.0.0)
