@@ -12,13 +12,11 @@ const TodoForm = ({
     const { 
         register,
         handleSubmit,
-        reset,
         formState: { errors }
     } = useTodoForm();
     
     const submitTodo = async (data: Duty) => {
         await createTodo({ name: data.name, completed: false });
-        reset();
     };
     
     return (

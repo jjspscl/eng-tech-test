@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Todo, TodoForm } from './features/todo'
 import { useTodos } from './features/todo/hook'
 import { Card, ConfigProvider, Typography, theme } from 'antd';
-import Title from 'antd/es/skeleton/Title';
 
 function App() {
   const { todos, getTodos, createTodo, updateTodo } = useTodos()

@@ -1,7 +1,6 @@
 import { FieldError, RefCallBack, UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
 import { Duty, DutyFields } from "@repo/common";
-import { LegacyRef, forwardRef, useEffect } from "react";
-import { Input, InputRef } from "antd";
+import { forwardRef, useEffect } from "react";
 
 export type FormFieldProps = {
     type: string;

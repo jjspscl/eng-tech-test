@@ -5,12 +5,12 @@ import { Duty, dutySchema } from "@repo/common";
 const useTodoForm = (
     defaultValues?: Partial<Duty>
 ) => {
-    const { register, handleSubmit, reset, formState } = useForm<Duty>({
+    const form = useForm<Duty>({
         resolver: zodResolver(dutySchema),
         defaultValues,
     });
 
-    return { register, handleSubmit, reset, formState };
+    return form;
 }
 
 export default useTodoForm;
