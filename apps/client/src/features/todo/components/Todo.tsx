@@ -1,5 +1,5 @@
 import { Duty } from "@repo/common";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import TodoName from "./TodoName";
 
 interface TodoProps {
