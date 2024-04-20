@@ -32,6 +32,7 @@ const server = http.createServer(async (req, res) => {
         res,
     }
 
+    console.log(`${req.method} ${reqURL.pathname}`);
     try {
         if (reqURL.pathname.match(/^\/todo(\/.*)?$/)) {
             let id: string = '';

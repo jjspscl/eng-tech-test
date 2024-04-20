@@ -21,7 +21,6 @@ export const getTodos = async (
     }: Context,
 ) => {
     const todos = await todoRepo.getTodos();
-    console.log("getTodos", todos)
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(todos));
 }
@@ -60,10 +59,8 @@ export const updateTodo = async (
     id: string,
     body: Duty,
 ) => {
-
     try {
         const newDuty = dutySchema.parse(body);
-
         const updatedTodo = await todoRepo.updateTodo(
             id,
             newDuty.name,
@@ -72,7 +69,6 @@ export const updateTodo = async (
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(updatedTodo));
-        
     } catch (error) {
       if (error instanceof z.ZodError) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
