@@ -21,6 +21,7 @@ export const getTodos = async (
     }: Context,
 ) => {
     const todos = await todoRepo.getTodos();
+    console.log("getTodos", todos)
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(todos));
 }

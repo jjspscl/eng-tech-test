@@ -13,13 +13,19 @@ export interface Context {
 }
 const server = http.createServer(async (req, res) => {
     const reqURL = new URL(req.url || '', `http://${req.headers.host}`);
+
+    // ALLOW CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
     
     const db = await dbPool.connect();
-    if (db) {
-        console.log('Connected to DB');
-    }
-
-
     const todoRepo = new TodoRepository(db);
     const ctx: Context = {
         todoRepo,
