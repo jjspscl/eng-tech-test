@@ -7,32 +7,31 @@
 ### Setup
 
 1. Clone the repository
-   
 2. Install dependencies from the root directory
+
    ```bash
    pnpm install
    ```
-
 3. Create a `.env` file in the root directory and add the following
+
    ```env
     SERVER_PORT=3000
-    DB_HOST=localhost
+    DB_HOST=DB_HOST
     DB_PORT=5432
     DB_USER=postgres
-    DB_PASSWORD=@pqapq7p7p
+    DB_PASSWORD=DB_PASSWORD
     DB_NAME=todo
    ```
-
 4. Start both the server and client from the root directory in development mode
+
    ```bash
    pnpm dev
    ```
-
 5. You can accessthe services:
    `client - http://localhost:5432`
    `server - http://localhost:3000`
-  
 6. Run all server and client tests from the root directory
+
    ```bash
    pnpm test
    ```
