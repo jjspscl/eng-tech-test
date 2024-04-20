@@ -1,6 +1,6 @@
 import * as http from 'http';
 import z from 'zod';
-import { dutySchema } from '@repo/common';
+import { Duty, dutySchema } from '@repo/common';
 import { Context } from '.';
 
 export const getTodoById = async (
@@ -43,6 +43,35 @@ export const createTodo = async (
 
         res.writeHead(201, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(newTodo));
+        
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(error.errors));
+      } 
+    }
+}
+
+export const updateTodo = async (
+    {
+        res,
+        todoRepo
+    }: Context,
+    id: string,
+    body: Duty,
+) => {
+
+    try {
+        const newDuty = dutySchema.parse(body);
+
+        const updatedTodo = await todoRepo.updateTodo(
+            id,
+            newDuty.name,
+            newDuty.completed
+        );
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(updatedTodo));
         
     } catch (error) {
       if (error instanceof z.ZodError) {

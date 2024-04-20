@@ -14,7 +14,6 @@ export interface Context {
 const server = http.createServer(async (req, res) => {
     const reqURL = new URL(req.url || '', `http://${req.headers.host}`);
 
-    // ALLOW CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Request-Method', '*');
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
@@ -35,10 +34,10 @@ const server = http.createServer(async (req, res) => {
 
     try {
         if (reqURL.pathname.match(/^\/todo(\/.*)?$/)) {
+            let id: string = '';
             switch (req.method) {
                 case 'GET':
-                    const id = req.url?.split('/')[2];
-
+                    id = req.url?.split('/')[2] || '';
                     if (id) {
                         await services.getTodoById(ctx, id);
                         break;
@@ -56,6 +55,25 @@ const server = http.createServer(async (req, res) => {
                         services.createTodo(ctx, todo);
                     });
                     break;
+                case 'PUT':
+                    id = req.url?.split('/')[2] || '';
+                    if (id) { 
+                        let putBody = '';
+                        req.on('data', (chunk) => {
+                            putBody += chunk;
+                        });
+                        req.on('end', async () => {
+                            const todo = JSON.parse(putBody);
+                            services.updateTodo(ctx, id, todo);
+                        });
+                        break;
+                    } else {
+                        res.writeHead(405, { 'Content-Type': 'text/html' });
+                        res.end('Method Not Allowed');
+                        break;
+                    }
+
+
                 default:
                     res.writeHead(405, { 'Content-Type': 'text/html' });
                     res.end('Method Not Allowed');
