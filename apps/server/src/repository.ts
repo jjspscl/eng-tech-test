@@ -45,16 +45,11 @@ class TodoRepository {
         name: string,
         completed: boolean
     ) {
-        const currentTodo = await this.getTodoById(id);
-        if (!currentTodo) {
-            throw new Error('Todo not found');
-        }
-
         const query = await this.db.query<Duty>(`
             UPDATE todos 
             SET name = $1, completed = $2, updated_at = NOW()
             WHERE id = $3 RETURNING *;
-        `, [name, completed, currentTodo.id]);
+        `, [name, completed, id]);
 
         return query.rows[0];    
     }

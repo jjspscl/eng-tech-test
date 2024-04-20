@@ -5,13 +5,18 @@ import { Context } from '.';
 
 export const getTodoById = async (
     {
-        req,
         res,
+        todoRepo
     }: Context,
     id: string,
 ) => {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'GET Todo by ID' }));
+    const todo = await todoRepo.getTodoById(id);
+    if (!todo) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Todo not found' }));
+    }
+    
+    return todo;
 }
 
 export const getTodos = async (
@@ -33,14 +38,20 @@ export const createTodo = async (
     body: any,
 ) => {
     try {
-        const newDuty = dutySchema.parse(body);
-        const newTodo = await todoRepo.createTodo(
-            newDuty.name,
-            newDuty.completed
-        );
+        const data = await dutySchema.safeParseAsync(body);
+        if (data.success) {
+            const newDuty = data.data;
+            const newTodo = await todoRepo.createTodo(
+                newDuty.name,
+                newDuty.completed
+            );
 
-        res.writeHead(201, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(newTodo));
+            res.writeHead(201, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(newTodo));
+        } else {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(data.error));
+        }
         
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -55,19 +66,26 @@ export const updateTodo = async (
         res,
         todoRepo
     }: Context,
-    id: string,
+    currentTodo: Duty,
     body: Duty,
 ) => {
     try {
-        const newDuty = dutySchema.parse(body);
-        const updatedTodo = await todoRepo.updateTodo(
-            id,
-            newDuty.name,
-            newDuty.completed
-        );
+        const data = await dutySchema.safeParseAsync(body);
+        if (data.success) {
+            const newDuty = data.data;
 
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(updatedTodo));
+            const updatedTodo = await todoRepo.updateTodo(
+                currentTodo.id,
+                newDuty.name,
+                newDuty.completed
+            );
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(updatedTodo));
+        } else {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(data.error));
+        }
     } catch (error) {
       if (error instanceof z.ZodError) {
         res.writeHead(400, { 'Content-Type': 'application/json' });

@@ -59,13 +59,16 @@ const server = http.createServer(async (req, res) => {
                 case 'PUT':
                     id = req.url?.split('/')[2] || '';
                     if (id) { 
+                        const currentTodo = await services.getTodoById(ctx, id);
+                        if (!currentTodo) break;
+
                         let putBody = '';
                         req.on('data', (chunk) => {
                             putBody += chunk;
                         });
                         req.on('end', async () => {
                             const todo = JSON.parse(putBody);
-                            services.updateTodo(ctx, id, todo);
+                            services.updateTodo(ctx, currentTodo, todo);
                         });
                         break;
                     } else {
