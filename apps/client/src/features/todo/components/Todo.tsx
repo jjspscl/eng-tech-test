@@ -5,22 +5,15 @@ import TodoName from "./TodoName";
 interface TodoProps {
     todo: Duty;
     updateTodo: (todo: Duty) => Promise<void>;
-    editMode?: boolean;
 }
 
 const Todo = (
     { 
         todo, 
         updateTodo,
-        editMode = false
     }: TodoProps
 ) => {
-    const [name, setName] = useState<string>(todo.name);
     const [checked, setChecked] = useState<boolean>(todo.completed);
-    const [edit, setEdit] = useState<boolean>(editMode);
-
-    const nameInput = useRef<HTMLInputElement>(null);
-
 
     const onCheck = async () => {
         setChecked(!checked);

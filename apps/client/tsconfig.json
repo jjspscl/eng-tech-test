@@ -4,8 +4,9 @@
   "references": [{ "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "outDir": "dist",
+    "jsx": "react-jsx",
     "paths": {
-      "@components/*": ["src/components/*"], 
+      "@components/*": ["./src/components/*"], 
     }
   },
 }

@@ -7,8 +7,10 @@
 ### General
 
 * [X] The code is published in a public git repository where anybody can clone the solution. (1.0.0)
-* [ ] Testing using [Jest](https://jestjs.io/) (frontend & backend).
-  I would personally use [Vitest](https://vitest.dev/) for its performance and compatibility with Vite and TurboRepo.
+* [X] Testing using [Jest](https://jestjs.io/) (frontend & backend). (2.2.0)
+  I will be using [Vitest](https://vitest.dev/) for performance and the current 	Vite and TurboRepo setup.
+* [ ] OPTIONAL: The solution is also able to delete items from the to-do list.
+  * [ ] BACKEND - Delete endpoint
 
 ### Client *(Frontend)*
 
@@ -19,11 +21,11 @@
 * [X] A frontend developed in React written in TypeScript in strict mode (1.1.0)
 * [X] Using hooks that render the list of duties retrieved from the backend
 * [X] Allow the user (2.0.0)
+
   * [X] to create new ones and/or
   * [X] modify existing ones.
-* [X] Must include form validations. (2.1.0)
-* [ ] OPTIONAL: The solution is also able to delete items from the to-do list.
-* [ ] OPTIONAL: Ant Design as the component library for the frontend.
+  * [X] Must include form validations. (2.1.0)
+  * [ ] OPTIONAL: Ant Design as the component library for the frontend.
 
 ### Server (Backend)
 

@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <TodoForm createTodo={createTodo} />
-      <div>
+      <div className='todo-items'>
         <h1>Todos</h1>
         <hr/>
 

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import useTodoForm from "../hooks/todo-form"
 import { Duty } from "@repo/common";
-import FormField from "@components/FormField";
+import FormField from "../../../components/FormField";
 
 
 interface TodoNameFormProps {
@@ -26,9 +26,7 @@ const TodoName = (props: TodoNameFormProps) => {
     const setEditMode = (mode: boolean) => {
         setEdit(mode);
         if (mode) {
-            setTimeout(() => {
-                nameInput.current?.focus();
-            }, 0);
+            nameInput.current?.focus();
         }
     }
 
@@ -43,13 +41,8 @@ const TodoName = (props: TodoNameFormProps) => {
             setEditMode(false);
             setName(todo.name);
         }
-    }
 
-
-    const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
-
-        setName(value);
+        reset();
     }
 
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLFormElement>) => {
@@ -80,7 +73,7 @@ const TodoName = (props: TodoNameFormProps) => {
                 />
             </form>
         ) : (
-            <p onClick={() => setEditMode(!edit)}>{name}</p>
+            <p className="todo-name" onClick={() => setEditMode(!edit)}>{name}</p>
         )
     )
 }

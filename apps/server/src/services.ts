@@ -28,6 +28,8 @@ export const getTodos = async (
     const todos = await todoRepo.getTodos();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(todos));
+
+    return res;
 }
 
 export const createTodo = async (

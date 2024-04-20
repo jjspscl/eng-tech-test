@@ -2,6 +2,11 @@
 
 Changelogs and documentations will be under this file.
 
+## 2.2.0
+
+* Unit Testing
+* E2E Testing
+
 ## 2.1.0
 
 * ADD Form Validation
