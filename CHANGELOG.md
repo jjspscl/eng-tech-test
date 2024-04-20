@@ -2,6 +2,20 @@
 
 Changelogs and documentations will be under this file.
 
+## 1.3.0
+
+* Initialize the COMMON package
+  * Types
+  * Validators with [Zod](https://zod.dev/)
+* BACKEND
+  * Setup SERVER PG connection
+    * CREATE Migration
+  * Implementing Todo CRUD
+    * GET `/todo`
+    * GET `/todo/:id`
+    * POST `/todo`
+  * ADDITIONAL: Adding Validator for Backend
+
 ## 1.2.0
 
 * Initialize Node Server Application

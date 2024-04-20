@@ -4,5 +4,5 @@ export default defineConfig({
   entryPoints: ['src/index.ts'],
   watch: 'dist/ts',
   bundle: true,
-  format: 'cjs',
+  format: ['cjs', 'esm'],
 });

@@ -4,23 +4,35 @@
   "description": "",
   "main": "",
   "scripts": {
-    "build": "tsup",
+    "clean": "rimraf dist",
+    "build": "pnpm clean && tsup --minify",
     "build:watch": "tsup --watch",
+    "start": "node dist/index.js",
     "start:watch": "nodemon --watch dist --exec node dist/index.js",
     "dev": "concurrently \"pnpm build:watch\" \"pnpm start:watch\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:run": "ts-node src/db/run_script"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@repo/common": "workspace:*",
     "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.5",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "nodemon": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5",
+    "zod": "^3.22.5"
   }
 }
