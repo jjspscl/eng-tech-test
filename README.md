@@ -25,7 +25,7 @@
   * [X] to create new ones and/or
   * [X] modify existing ones.
   * [X] Must include form validations. (2.1.0)
-  * [ ] OPTIONAL: Ant Design as the component library for the frontend.
+  * [X] OPTIONAL: Ant Design as the component library for the frontend. (2.3.0)
 
 ### Server (Backend)
 

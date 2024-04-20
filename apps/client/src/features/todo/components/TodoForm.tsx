@@ -1,6 +1,7 @@
 import FormField from "../../../components/FormField";
 import { Duty } from "@repo/common";
 import useTodoForm from "../hooks/todo-form";
+import { Button } from "antd";
 
 interface TodoFormProps {
     createTodo: (todo: Omit<Duty,'id'>) => Promise<void>;
@@ -28,9 +29,9 @@ const TodoForm = ({
                 name="name"
                 register={register}
                 error={errors.name}
-                alertMode={false}
+                alertMode={true}
             />
-            <button type="submit">Add Todo</button>
+            <Button htmlType="submit">Add Todo</Button>
         </form>
     );
 }

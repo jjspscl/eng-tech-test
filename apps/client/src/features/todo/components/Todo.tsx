@@ -1,10 +1,11 @@
 import { Duty } from "@repo/common";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TodoName from "./TodoName";
+import { Checkbox } from "antd";
 
 interface TodoProps {
     todo: Duty;
-    updateTodo: (todo: Duty) => Promise<void>;
+    updateTodo: (todo: Partial<Duty>) => Promise<void>;
 }
 
 const Todo = (
@@ -27,13 +28,30 @@ const Todo = (
         }
     }
 
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const todoRef = useRef<HTMLDivElement>(null);
+    const onTodoClick = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) => {
+        e.preventDefault();
+        if(e.target === e.currentTarget) {
+            setEditMode(true);
+        }
+    }
 
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (todoRef.current && !todoRef.current.contains(e.target as Node)) {
+                setEditMode(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+    }, [todoRef]);
     return (
-        <div className="todo-item">
-            <TodoName todo={todo} updateTodo={updateTodo} />
-            <input type="checkbox" checked={checked}
-                onChange={onCheck}
-            />
+        <div className="todo-item" onClick={onTodoClick} ref={todoRef}>
+            <TodoName todo={todo} updateTodo={updateTodo} editMode={editMode} setEditMode={setEditMode} />
+            <Checkbox checked={todo.completed} onClick={onCheck} />
         </div>
     )
 }

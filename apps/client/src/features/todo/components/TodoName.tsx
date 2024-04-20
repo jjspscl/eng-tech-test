@@ -1,15 +1,19 @@
-import { useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import useTodoForm from "../hooks/todo-form"
-import { Duty } from "@repo/common";
+import { Duty, dutySchema } from "@repo/common";
 import FormField from "../../../components/FormField";
+import { RefCallBack } from "react-hook-form";
+import { Tooltip } from "antd";
 
 
 interface TodoNameFormProps {
     todo: Duty;
-    updateTodo: (todo: Duty) => Promise<void>;
+    updateTodo: (todo: Partial<Duty>) => Promise<void>;
+    editMode: boolean;
+    setEditMode: (mode: boolean) => void;
 }
 const TodoName = (props: TodoNameFormProps) => {
-    const { todo, updateTodo } = props;
+    const { todo, updateTodo, editMode, setEditMode } = props;
 
     const { 
         register, 
@@ -21,17 +25,9 @@ const TodoName = (props: TodoNameFormProps) => {
     });
 
     const [name, setName] = useState<string>(todo.name);
-    const [edit, setEdit] = useState<boolean>(false);
-    const nameInput = useRef<HTMLInputElement>(null);
-    const setEditMode = (mode: boolean) => {
-        setEdit(mode);
-        if (mode) {
-            nameInput.current?.focus();
-        }
-    }
 
     const saveName = async (
-        data: Duty,
+        data: Partial<Duty>,
     ) => {
         try {
             const updatedTodo = { ...todo, name: data.name };
@@ -45,24 +41,48 @@ const TodoName = (props: TodoNameFormProps) => {
         reset();
     }
 
+    const onNameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const previousName = todo.name;
+        const { value } = e.target;
+
+        const data = await dutySchema.safeParseAsync({ name: value });
+        if (data.success) {
+            setName(value);
+            await saveName({ name: value });
+        } else {
+            data.error.issues.forEach((issue) => {
+                alert(issue.message);
+            })
+            setName(previousName);
+        }
+
+    }   
+
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLFormElement>) => {
         if (e.key === 'Escape') {
             setEditMode(false);
             setName(todo.name);
         } else if (e.key === 'Enter') {
             setEditMode(false);
-            await handleSubmit(saveName)();
+            await onNameChange(e as any);
         }
     }
 
+    const inputRef = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+        if (editMode && inputRef.current) {
+            setTimeout(() => {
+                inputRef.current?.focus();
+            })
+        }
+    }, [editMode]);
+
     return (
-        edit ? (
+        editMode ? (
             <form
                 onSubmit={handleSubmit(saveName)}
                 onKeyDown={(e) => handleKeyDown(e)}
             >
-                <button 
-                    type="submit">Save</button>
                 <FormField
                     type="text"
                     placeholder="Name"
@@ -70,10 +90,11 @@ const TodoName = (props: TodoNameFormProps) => {
                     register={register}
                     error={errors.name}
                     alertMode={true}
+                    ref={inputRef}
                 />
             </form>
         ) : (
-            <p className="todo-name" onClick={() => setEditMode(!edit)}>{name}</p>
+            <p className="todo-name">{name}</p>
         )
     )
 }

@@ -12,8 +12,7 @@ const todoFetch = async (path: string, options: RequestInit) => {
         const data = await response.json();
         return data;
     } catch (error) {
-        alert("Something went wrong");
-        throw error;
+        console.error(error);
     }
 }
 
@@ -32,7 +31,8 @@ export const getTodos = async () => {
     }
 }
 
-export const updateTodo = async (todo: Duty) => {
+export const updateTodo = async (todo: Partial<Duty>) => {
+    console.log('updateTodo ->', todo);
     try {
         const data = await todoFetch(`/todo/${todo.id}`, {
             method: 'PUT',

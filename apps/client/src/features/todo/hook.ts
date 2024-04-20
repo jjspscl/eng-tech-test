@@ -37,7 +37,7 @@ export const useTodos = () => {
 
     }
 
-    const updateTodo = async (todo: Duty) => {
+    const updateTodo = async (todo: Partial<Duty>) => {
         const currentTodos = todos;
         const updatedTodos = todos.map((t) => {
             if (t.id === todo.id) {
@@ -45,7 +45,7 @@ export const useTodos = () => {
             }
             return t;
         });
-        setTodos(updatedTodos);
+        setTodos(updatedTodos as Duty[]);
 
         // UPDATE the todo on the server
         const serverTodo = await api.updateTodo(todo);
@@ -57,7 +57,7 @@ export const useTodos = () => {
         // Update the todo on the client
         const currentTodo = todos.findIndex((t) => t.id === serverTodo.id);
         updatedTodos[currentTodo] = serverTodo;
-        setTodos(updatedTodos);
+        setTodos(updatedTodos as Duty[]);
     }
 
     return {
