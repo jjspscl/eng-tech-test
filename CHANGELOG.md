@@ -2,6 +2,14 @@
 
 Changelogs and documentations will be under this file.
 
+## 2.1.0
+
+* ADD Form Validation
+  * MODIFY validator schema to ADD limit to todo names to 32 characters, and minimum 3
+  * APPLY [Zod](https://zod.dev/) Schema to the Create and Update
+    * FRONTEND - with Zod and [react-hook-form](https://react-hook-form.com/)
+    * BACKEND - enhance SafeParsing with Zod
+
 ## 2.0.0
 
 * FRONTEND

@@ -45,6 +45,18 @@ body {
   }
 }
 
+.add-todo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+
+}
+
+.add-todo div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 .todo-item {
   display: flex;

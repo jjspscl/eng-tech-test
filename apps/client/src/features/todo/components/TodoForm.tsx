@@ -1,5 +1,7 @@
+import FormField from "@components/FormField";
 import { Duty } from "@repo/common";
 import { useState } from "react";
+import useTodoForm from "../hooks/todo-form";
 
 interface TodoFormProps {
     createTodo: (todo: Omit<Duty,'id'>) => Promise<void>;
@@ -7,22 +9,28 @@ interface TodoFormProps {
 const TodoForm = ({
     createTodo
 }: TodoFormProps) => {
-    const [text, setText] = useState('');
+    const { 
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors }
+    } = useTodoForm();
     
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setText(e.target.value);
-    };
-    
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!text.trim()) return;
-        createTodo({ name: text, completed: false });
-        setText('');
+    const submitTodo = async (data: Duty) => {
+        await createTodo({ name: data.name, completed: false });
+        reset();
     };
     
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" value={text} onChange={handleChange} />
+        <form className="add-todo" onSubmit={handleSubmit(submitTodo)}>
+            <FormField
+                type="text"
+                placeholder="Name"
+                name="name"
+                register={register}
+                error={errors.name}
+                alertMode={false}
+            />
             <button type="submit">Add Todo</button>
         </form>
     );

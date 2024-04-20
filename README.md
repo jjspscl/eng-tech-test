@@ -18,10 +18,10 @@
 
 * [X] A frontend developed in React written in TypeScript in strict mode (1.1.0)
 * [X] Using hooks that render the list of duties retrieved from the backend
-* [X] Allow the user (1.4.0)
+* [X] Allow the user (2.0.0)
   * [X] to create new ones and/or
   * [X] modify existing ones.
-* [ ] Must include form validations.
+* [X] Must include form validations. (2.1.0)
 * [ ] OPTIONAL: The solution is also able to delete items from the to-do list.
 * [ ] OPTIONAL: Ant Design as the component library for the frontend.
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Todo, TodoForm } from './features/todo'
-import { useTodos } from './features/todo/hooks'
+import { useTodos } from './features/todo/hook'
 
 function App() {
   const { todos, getTodos, createTodo, updateTodo } = useTodos()

@@ -1,5 +1,6 @@
 import { Duty } from "@repo/common";
 import { useRef, useState } from "react";
+import TodoName from "./TodoName";
 
 interface TodoProps {
     todo: Duty;
@@ -19,14 +20,7 @@ const Todo = (
     const [edit, setEdit] = useState<boolean>(editMode);
 
     const nameInput = useRef<HTMLInputElement>(null);
-    const setEditMode = (mode: boolean) => {
-        setEdit(mode);
-        if (mode) {
-            setTimeout(() => {
-                nameInput.current?.focus();
-            }, 0);
-        }
-    }
+
 
     const onCheck = async () => {
         setChecked(!checked);
@@ -40,58 +34,10 @@ const Todo = (
         }
     }
 
-    const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
-
-        setName(value);
-    }
-
-    const onNameSave = async (
-        name: string,
-        e?: React.FormEvent<HTMLFormElement>,
-    ) => {
-        e && e.preventDefault();
-
-        try {
-            const updatedTodo = { ...todo, name };
-            await updateTodo(updatedTodo);
-            setEditMode(false);
-        } catch (error) {
-            setEditMode(false);
-            setName(todo.name);
-        }
-    }
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Escape') {
-            setEditMode(false);
-            setName(todo.name);
-        } else if (e.key === 'Enter') {
-            setEditMode(false);
-            onNameSave(name);
-        }
-    }
 
     return (
-        <div className="todo-item" onKeyDown={handleKeyDown}>
-            {
-                edit ? (
-                    <form
-                        onSubmit={(e) => onNameSave(name, e)}
-                    >
-                        <button 
-                            type="submit">Save</button>
-                        <input 
-                            type="text" 
-                            ref={nameInput}
-                            defaultValue={todo.name}
-                            onChange={(e) => onNameChange(e)}
-                        />
-                    </form>
-                ) : (
-                    <p onClick={() => setEditMode(!edit)}>{name}</p>
-                )
-            }
+        <div className="todo-item">
+            <TodoName todo={todo} updateTodo={updateTodo} />
             <input type="checkbox" checked={checked}
                 onChange={onCheck}
             />
