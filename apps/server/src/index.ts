@@ -11,6 +11,9 @@ export interface Context {
     res: http.ServerResponse,
     todoRepo: TodoRepository,
 }
+const db = dbPool.connect().then(async (client: PoolClient) => {
+    return client;
+});
 const server = http.createServer(async (req, res) => {
     const reqURL = new URL(req.url || '', `http://${req.headers.host}`);
 
@@ -24,8 +27,7 @@ const server = http.createServer(async (req, res) => {
         return;
     }
     
-    const db = await dbPool.connect();
-    const todoRepo = new TodoRepository(db);
+    const todoRepo = new TodoRepository(await db);
     const ctx: Context = {
         todoRepo,
         req,
