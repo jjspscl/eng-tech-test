@@ -1,5 +1,5 @@
 import { Duty } from "@repo/common";
-
+import z from "zod";
 const apiURL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
 const todoFetch = async (path: string, options: RequestInit) => {
@@ -9,6 +9,11 @@ const todoFetch = async (path: string, options: RequestInit) => {
             console.error(response);
             throw new Error('Failed to fetch');
         }
+
+        if (response.status === 204) {
+            return true;
+        }
+
         const data = await response.json();
         return data;
     } catch (error) {
@@ -60,5 +65,26 @@ export const postTodo = async (todo: Omit<Duty, 'id'>) => {
         return data as Duty;
     } catch (error) {
         console.error('postTodo ->', error);
+    }
+}
+
+export const deleteTodo = async (id: string) => {
+    try {
+        const res = await todoFetch(`/todo/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await z.boolean().safeParseAsync(res);
+        if (data.success) {
+            return data.data;
+        } else {
+            throw new Error('Failed to delete');
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
 }

@@ -19,7 +19,7 @@ const server = http.createServer(async (req, res) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Request-Method', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', '*');
     if (req.method === 'OPTIONS') {
         res.writeHead(200);
@@ -78,7 +78,18 @@ const server = http.createServer(async (req, res) => {
                         res.end('Method Not Allowed');
                         break;
                     }
-
+                case 'DELETE':
+                    id = req.url?.split('/')[2] || '';
+                    if (id) {
+                        const todo = await services.getTodoById(ctx, id);
+                        if (!todo) break;
+                        await services.deleteTodo(ctx, todo);
+                        break;
+                    } else {
+                        res.writeHead(405, { 'Content-Type': 'text/html' });
+                        res.end('Method Not Allowed');
+                        break;
+                    }
 
                 default:
                     res.writeHead(405, { 'Content-Type': 'text/html' });

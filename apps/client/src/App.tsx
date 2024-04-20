@@ -51,7 +51,7 @@ function App() {
       }}
     >
 
-      <Card title="Todos" style={{ width: 300 }}>
+      <Card title="Todos" className='todo-container'>
         <TodoForm createTodo={createTodo} />
         <div className='todo-items'>
           {

@@ -9,8 +9,7 @@
 * [X] The code is published in a public git repository where anybody can clone the solution. (1.0.0)
 * [X] Testing using [Jest](https://jestjs.io/) (frontend & backend). (2.2.0)
   I will be using [Vitest](https://vitest.dev/) for performance and the current 	Vite and TurboRepo setup.
-* [ ] OPTIONAL: The solution is also able to delete items from the to-do list.
-  * [ ] BACKEND - Delete endpoint
+* [X] OPTIONAL: The solution is also able to delete items from the to-do list.
 
 ### Client *(Frontend)*
 

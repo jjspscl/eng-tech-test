@@ -1,10 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as api from './api';
 import { Duty } from '@repo/common';
 
 
 export const useTodos = () => {
-    const [todos, setTodos] = useState<Duty[]>([]);
+    const [todos, _setTodos] = useState<Duty[]>([]);
+
+    useEffect(() => {
+        window.addEventListener("todo-update", () => {
+            const todosString = localStorage.getItem("todos");
+            if (!todosString) {
+                return;
+            }
+
+            const todos = JSON.parse(todosString) as Duty[];
+            _setTodos([...todos]);
+        });
+
+        getTodos();
+
+
+        return () => {
+            window.removeEventListener("todo-update", () => {});
+        }
+    }, []);
+
+    const setTodos = (todos: Duty[]) => {
+        _setTodos([...todos]);
+
+        const todosString = JSON.stringify(todos);
+        localStorage.setItem("todos", todosString);
+        window.dispatchEvent(new Event("todo-update"));
+    }
 
     const getTodos = async () => {
         const todos = await api.getTodos();
@@ -60,10 +87,26 @@ export const useTodos = () => {
         setTodos(updatedTodos as Duty[]);
     }
 
+    const deleteTodo = async (id: string) => {
+        const currentTodos = todos;
+        const updatedTodos = todos.filter((t) => t.id !== id);
+        console.log('deleteTodo ->', currentTodos, updatedTodos);
+        setTodos(updatedTodos);
+
+        // DELETE the todo on the server
+        try {
+            await api.deleteTodo(id);
+        } catch (error) {
+            console.error("deleteTodo err ->", error);
+            setTodos(currentTodos);
+        }
+    }
+
     return {
         todos,
         getTodos,
         createTodo,
         updateTodo,
+        deleteTodo,
     };
 }

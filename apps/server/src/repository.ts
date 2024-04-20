@@ -53,6 +53,14 @@ class TodoRepository {
 
         return query.rows[0];    
     }
+
+    async deleteTodo(
+        id: string
+    ) {
+        await this.db.query(`
+            DELETE FROM todos WHERE id = $1;
+        `, [id]);
+    }
 }
 
 

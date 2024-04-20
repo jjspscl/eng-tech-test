@@ -45,6 +45,16 @@ body {
   }
 }
 
+.todo-container {
+  min-width: 720px;
+}
+
+@media screen and (max-width: 720px) {
+  .todo-container {
+    min-width: 100%;
+  }
+}
+
 .add-todo {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -75,8 +85,6 @@ body {
   overflow-y: auto;
 }
 
-/* if todo-items contains 5 or more elements make it scrollable */
-
 
 .todo-item {
   display: flex;
@@ -101,7 +109,6 @@ input:checked + p {
 }
 
 .todo-item input {
-  /* make this render like a normal p but editable */
   background-color: transparent;
   border: none;
   color: inherit;
@@ -117,4 +124,9 @@ input:checked + p {
 .todo-item input:focus {
   outline: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
 }

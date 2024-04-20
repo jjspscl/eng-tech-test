@@ -2,6 +2,7 @@ import * as http from 'http';
 import z from 'zod';
 import { Duty, dutySchema } from '@repo/common';
 import { Context } from '.';
+import { todo } from 'node:test';
 
 export const getTodoById = async (
     {
@@ -95,3 +96,18 @@ export const updateTodo = async (
       } 
     }
 }
+
+export const deleteTodo = async (
+    {
+        res,
+        todoRepo
+    }: Context,
+    todo: Duty,
+) => {
+    await todoRepo.deleteTodo(todo.id);
+    res.writeHead(204, { 'Content-Type': 'application/json' });
+    res.end(
+        JSON.stringify({ message: 'Todo deleted' })
+    );
+}
+        

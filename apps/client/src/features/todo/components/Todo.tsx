@@ -2,6 +2,7 @@ import { Duty } from "@repo/common";
 import { useEffect, useRef, useState } from "react";
 import TodoName from "./TodoName";
 import { Checkbox } from "antd";
+import TodoDelete from "./TodoDelete";
 
 interface TodoProps {
     todo: Duty;
@@ -51,7 +52,10 @@ const Todo = (
     return (
         <div className="todo-item" onClick={onTodoClick} ref={todoRef}>
             <TodoName todo={todo} updateTodo={updateTodo} editMode={editMode} setEditMode={setEditMode} />
-            <Checkbox checked={todo.completed} onClick={onCheck} />
+            <div className="todo-actions">
+                <Checkbox checked={todo.completed} onClick={onCheck} />
+                { todo.id && <TodoDelete todo={todo} />}
+            </div>
         </div>
     )
 }

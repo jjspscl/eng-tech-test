@@ -2,9 +2,13 @@
 
 Changelogs and documentations will be under this file.
 
+## 2.4.0
+
+* DELETE - BE + FE
+
 ## 2.3.0
 
-* ADD [Ant Design]()
+* ADD [Ant Design](https://ant.design/)
 
 ## 2.2.0
 
