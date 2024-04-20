@@ -7,12 +7,17 @@ class TodoRepository {
         db: PoolClient
     ) {
         this.db = db;
+
+        this.db.on('error', (err) => {
+            console.error('Unexpected error on idle client', err);
+            process.exit(-1);
+        });
     }
 
 
     async getTodos() {
         const { rows } = await this.db.query(`
-            SELECT * FROM todos;
+            SELECT * FROM todos ORDER BY updated_at DESC;
         `);
         return rows;
     }
@@ -46,7 +51,9 @@ class TodoRepository {
         }
 
         const query = await this.db.query<Duty>(`
-            UPDATE todos SET name = $1, completed = $2 WHERE id = $3 RETURNING *;
+            UPDATE todos 
+            SET name = $1, completed = $2, updated_at = NOW()
+            WHERE id = $3 RETURNING *;
         `, [name, completed, currentTodo.id]);
 
         return query.rows[0];    

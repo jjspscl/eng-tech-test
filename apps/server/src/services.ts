@@ -34,7 +34,6 @@ export const createTodo = async (
 ) => {
     try {
         const newDuty = dutySchema.parse(body);
-
         const newTodo = await todoRepo.createTodo(
             newDuty.name,
             newDuty.completed

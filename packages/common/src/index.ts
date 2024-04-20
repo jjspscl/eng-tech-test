@@ -1,5 +1,5 @@
 export type {
-    Duty
+    Duty,
 } from './types';
 
 export {

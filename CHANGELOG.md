@@ -2,6 +2,20 @@
 
 Changelogs and documentations will be under this file.
 
+## 2.0.0
+
+* FRONTEND
+  * REMOVE Boilerplate code
+  * SCAFFOLD todo
+    * Since we are not allowed to use state management solution like Redux, the React’s hook useReducer or similar, we will be using [component injection](https://reactpatterns.js.org/docs/component-injection/) with the todos at the top level of our application
+  * BACKEND Integration
+    * ADD, UPDATE TODOS integration with BACKEND
+* BACKEND
+  * CONFIGURE CORS
+  * NEW Enpoint
+    * PUT `/todo/:id` , for updating todos
+  * ADD Request logging
+
 ## 1.3.0
 
 * Initialize the COMMON package
